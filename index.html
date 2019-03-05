@@ -1,0 +1,35 @@
+<!doctype html>
+<!--  ng-app directive to define the application scope. -->
+<html ng-app="myApp">
+
+
+
+    <head>
+        <title>Hello runner</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+		<script type="text/javascript" src=todo.js"></script>
+        <!-- Modules -->
+        <script src="js/app.js"></script>
+        <!-- Controllers -->
+        <script src="js/controllers/MainController.js"></script>
+    </head>
+
+    <body >
+    <!-- Like ng-app, ng-controller is a directive that defines the controller scope.
+    This means that properties attached to $scope in MainController
+    become available to use within <div class="main">. -->
+    <div class="main" ng-controller="MainController">
+
+        <!-- we accessed $scope.title using {{ title }}. This is called an expression.
+        Expressions are used to display values on the page. -->
+        <h1>{{ title }}</h1>
+    </div>
+
+    <div class="run" ng-controller="RunController">
+        <h1> Run id is: {{ run.id }} </h1>
+        <p> Run location is: {{ run.location }} </p>
+        <!-- AngularJS filter to format the data in the view. -->
+        <p> Run starttime is: {{run.startTime| date: "yyyy-MM-dd HH:mm"}}</p>
+    </div>
+    </body>
+</html>
