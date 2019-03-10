@@ -5,16 +5,33 @@
 
 
     <head>
-        <title>Hello runner</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-		<script type="text/javascript" src=todo.js"></script>
+
+        <title>Playing with AngularJS</title>
+        <link href="css/main.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
         <!-- Modules -->
         <script src="js/app.js"></script>
         <!-- Controllers -->
         <script src="js/controllers/MainController.js"></script>
+        <script src="js/controllers/ForecastController.js"></script>
+        <script src="js/controllers/HomeController.js"></script>
+        <script src="js/controllers/PhotoController.js"></script>
+        <!-- Directives -->
+        <script src="js/directives/appInfo.js">  </script>
+        <script src="js/directives/installApp.js"></script>
+        <!--Services -->
+        <script src="js/services/forecast.js"></script>
+        <script src="js/services/photos.js"></script>
+        <!--Others -->
+        <script src="js/dependency_injection.js"></script>
+
+
     </head>
 
     <body >
+
+
     <!-- Like ng-app, ng-controller is a directive that defines the controller scope.
     This means that properties attached to $scope in MainController
     become available to use within <div class="main">. -->
@@ -25,11 +42,41 @@
         <h1>{{ title }}</h1>
     </div>
 
+
     <div class="run" ng-controller="RunController">
-        <h1> Run id is: {{ run.id }} </h1>
-        <p> Run location is: {{ run.location }} </p>
+        <p> Run id is: {{ run.id }} </p>
+        <p> Run location is: {{ run.location | uppercase }} </p>
         <!-- AngularJS filter to format the data in the view. -->
         <p> Run starttime is: {{run.startTime| date: "yyyy-MM-dd HH:mm"}}</p>
+
+        <h1>All runs</h1>
+        <!-- prints an array -->
+        <div ng-repeat="run in runs">
+            <div>
+                <p class="id">{{run.location}}, {{run.startTime | date: "yyyy-MM-dd HH:mm"}}</p>
+                <p ng-click="plusOne(run.id)">+ {{run.likes}}</p>
+            </div>
+        </div>
+
+        <div ng-controller="ScopeController">
+
+            {{name}}
+        </div>
+
+
     </div>
+    <div class="app" ng-controller="AppStoreController">
+
+        <div>
+            <app-info info="move"></app-info>
+            <!--  custom directive -->
+            <install-app> </install-app>
+        </div>
+
+        <div ng-controller="ForecastController">
+            City: {{fiveDay.city_name}}
+        </div>
+    </div>
+    <div ng-view></div>
     </body>
 </html>
